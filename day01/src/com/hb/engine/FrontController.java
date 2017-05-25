@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.hb.controller.AddController;
+import com.hb.controller.DetailController;
+import com.hb.controller.InsertController;
+import com.hb.controller.ListController;
 import com.hb.model.SimpleDao;
 
 
@@ -17,24 +21,36 @@ public class FrontController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String url="/";
+		doDo(req, resp);
+	}
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		doDo(req, resp);
+	}
+	
+	protected void doDo(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String url="";
 		String path=req.getRequestURI();
 		
 		try {
 			SimpleDao dao = new SimpleDao();
 			
 			if(path.equals("/day01/list.do")){
-				url+="list";
-				List list=dao.selectAll();
-				req.setAttribute("alist", list);
+				ListController controller=new ListController();
+				url=controller.execute(req);
 			}else if(path.equals("/day01/detail.do")){
-				url+="detail";
-				Map<String,Object> map=dao.selectOne(Integer.parseInt(req.getParameter("idx")));
-				req.setAttribute("bean", map);
+				DetailController controller=new DetailController();
+				url=controller.execute(req);	
 			}else if(path.equals("/day01/add.do")){
-				url+="add";
+				AddController controller=new AddController();
+				url=controller.execute(req);
+			}else if("POST".equals(req.getMethod())
+					&&path.equals("/day01/insert.do")){
+				InsertController controller = new InsertController();
+				url=controller.execute(req);
 			}
-			url+=".jsp";
+			dao.close();
 		
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
