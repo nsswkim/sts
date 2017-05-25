@@ -14,8 +14,10 @@ public class InsertController implements FrontImp {
 		String name=req.getParameter("name");
 		int pay=Integer.parseInt(req.getParameter("pay"));
 		dao.insertOne(sabun, name, pay);
+		dao.close();
 		}catch (Exception e) {
 		}
+		
 		return "list.do";
 	}
 }

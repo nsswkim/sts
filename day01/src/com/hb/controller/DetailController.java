@@ -14,6 +14,7 @@ public class DetailController implements FrontImp {
 		SimpleDao dao = new SimpleDao();
 		Map<String,Object> map=dao.selectOne(Integer.parseInt(req.getParameter("idx")));
 		req.setAttribute("bean", map);
+		dao.close();
 		}catch (Exception e) {
 		}
 		return "/detail.jsp";

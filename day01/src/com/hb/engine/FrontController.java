@@ -14,6 +14,7 @@ import com.hb.controller.AddController;
 import com.hb.controller.DetailController;
 import com.hb.controller.InsertController;
 import com.hb.controller.ListController;
+import com.hb.controller.UpdateController;
 import com.hb.model.SimpleDao;
 
 
@@ -32,28 +33,23 @@ public class FrontController extends HttpServlet {
 	protected void doDo(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String url="";
 		String path=req.getRequestURI();
+		FrontImp controller=null;
 		
-		try {
-			SimpleDao dao = new SimpleDao();
-			FrontImp controller=null;
-			if(path.equals("/day01/list.do")){
-				controller=new ListController();
-			}else if(path.equals("/day01/detail.do")){
-				controller=new DetailController();
-			}else if(path.equals("/day01/add.do")){
-				controller=new AddController();
-			}else if("POST".equals(req.getMethod())
-					&&path.equals("/day01/insert.do")){
-				controller = new InsertController();
-			}
-			url=controller.execute(req);
-			dao.close();
-		
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if(path.equals("/day01/list.do")){
+			controller=new ListController();
+		}else if(path.equals("/day01/detail.do")){
+			controller=new DetailController();
+		}else if(path.equals("/day01/add.do")){
+			controller=new AddController();
+		}else if("POST".equals(req.getMethod())
+				&&path.equals("/day01/insert.do")){
+			controller = new InsertController();
+		}else if("POST".equals(req.getMethod())
+				&&path.equals("/day01/update.do")){
+			controller = new UpdateController();
 		}
+		url=controller.execute(req);
+		
 		//view
 		req.getRequestDispatcher(url).forward(req, resp);
 	}
