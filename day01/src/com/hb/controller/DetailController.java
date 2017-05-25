@@ -4,9 +4,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.hb.engine.FrontImp;
 import com.hb.model.SimpleDao;
 
-public class DetailController {
+public class DetailController implements FrontImp {
 
 	public String execute(HttpServletRequest req) {
 		try{

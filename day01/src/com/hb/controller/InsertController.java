@@ -2,9 +2,10 @@ package com.hb.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.hb.engine.FrontImp;
 import com.hb.model.SimpleDao;
 
-public class InsertController {
+public class InsertController implements FrontImp {
 
 	public String execute(HttpServletRequest req) {
 		try{

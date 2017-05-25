@@ -5,9 +5,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.hb.engine.FrontImp;
 import com.hb.model.SimpleDao;
 
-public class ListController {
+public class ListController implements FrontImp {
 
 	public String execute(HttpServletRequest req){
 		

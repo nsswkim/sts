@@ -35,21 +35,18 @@ public class FrontController extends HttpServlet {
 		
 		try {
 			SimpleDao dao = new SimpleDao();
-			
+			FrontImp controller=null;
 			if(path.equals("/day01/list.do")){
-				ListController controller=new ListController();
-				url=controller.execute(req);
+				controller=new ListController();
 			}else if(path.equals("/day01/detail.do")){
-				DetailController controller=new DetailController();
-				url=controller.execute(req);	
+				controller=new DetailController();
 			}else if(path.equals("/day01/add.do")){
-				AddController controller=new AddController();
-				url=controller.execute(req);
+				controller=new AddController();
 			}else if("POST".equals(req.getMethod())
 					&&path.equals("/day01/insert.do")){
-				InsertController controller = new InsertController();
-				url=controller.execute(req);
+				controller = new InsertController();
 			}
+			url=controller.execute(req);
 			dao.close();
 		
 		} catch (ClassNotFoundException e) {
