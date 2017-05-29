@@ -14,16 +14,10 @@ public class JdbcTemplate {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 
-	public JdbcTemplate() {
-		String url="jdbc:h2:tcp://localhost/~/test";
-		String user="sa";
-		String password="";
-		try {
-			Class.forName("org.h2.Driver");
-			conn=DriverManager.getConnection(url, user, password);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public JdbcTemplate() {}
+	
+	public JdbcTemplate(Connection conn) {
+		this.conn=conn;
 	}
 	
 	public Object executeQuery(String sql,RowMapper mapper) throws SQLException {
