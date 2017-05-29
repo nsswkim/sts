@@ -19,14 +19,16 @@
 			<span>금액</span>		
 		</div>
 		<c:forEach items="${alist }" var="bean">
-		<div class="tr">
-			<span>${bean.sabun }</span>
-			<span>${bean.name }</span>
-			<span>${bean.nalja }</span>
-			<span>${bean.pay }</span>		
-		</div>
+			<a href="edit.do?idx=${bean.sabun }">
+				<div class="tr">
+					<span>${bean.sabun }</span>
+					<span>${bean.name }</span>
+					<span>${bean.nalja }</span>
+					<span>${bean.pay }</span>		
+				</div>
+			</a>
 		</c:forEach>
 	</div>
-	
+	<a href="add.do">입력</a>
 </body>
 </html>

@@ -3,10 +3,10 @@
 		border: 1px solid red;
 		margin: 0px auto;
 	}
-	#table>.tr{
+	.tr{
 		border-bottom: 1px solid red;
 	}
-	#table>.tr>span{
+	.tr>span{
 		display: inline-block;
 		width: 24%;
 	}
