@@ -3,11 +3,13 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
     "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
-	<package name="default" extends="struts-default">
+	<package name="default" namespace="/" extends="struts-default">
 		<action name="list" class="com.hb.action.SelectAll">
-			<result>/WEB-INF/page/list.jsp</result>
+			<result name="success">/WEB-INF/page/list.jsp</result>
 		</action>
-	
+		<action name="detail" class="com.hb.action.SelectOne">
+			<result name="success">/WEB-INF/page/detail.jsp</result>
+		</action>
 	</package>
 </struts>
 
