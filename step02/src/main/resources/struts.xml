@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="default" extends="struts-default">
+		<action name="index" class="com.hb.struts.action.IndexAction">
+			<result>/index.jsp</result>
+		</action>
+		<action name="list" class="com.hb.struts.action.ListAction">
+			<result name="success">/list.jsp</result>
+		</action>
+		<action name="add">
+			<result>/add.jsp</result>
+		</action>
+		
+		<action name="insert" class="com.hb.struts.action.InsertThreeAction">
+			<interceptor-ref name="prepare"/>
+			<interceptor-ref name="modelDriven"/>
+			<interceptor-ref name="params"/>
+			<result name="input">/add.jsp</result>
+			<result name="success" type="redirect">/step02/list.action</result>
+		</action>
+		<action name="detail" class="com.hb.struts.action.DetailAction">
+			<result>/detail.jsp</result>
+		</action>
+		<action name="edit" class="com.hb.struts.action.DetailAction">
+			<result>/edit.jsp</result>
+		</action>
+		<action name="update" class="com.hb.struts.action.UpdateTwoAction">
+			<interceptor-ref name="params"/>
+			<interceptor-ref name="workflow"/>
+			<result name="input" type="redirectAction">
+				<param name="actionName">edit</param>
+				<param name="sabun">${bean.sabun}</param>
+			</result>
+			<result name="success" type="redirectAction">list</result>
+		</action>
+	</package>
+
+</struts>
+
+
+
+
+
+
+
+
+
