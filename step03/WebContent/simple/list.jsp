@@ -29,6 +29,7 @@
 	  <p><a class="btn btn-primary btn-lg" href="add.action" role="button">
 	  		입력</a></p>
 	</div>
+	<p class="bg-danger">${msg }</p>
 	<table class="table">
 	  <tr>
 	  	<th>사번</th>

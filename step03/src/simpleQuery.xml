@@ -10,6 +10,12 @@
 	<update id="updateOne" parameterClass="com.hb.struts2.model.SimpleVo">
 		UPDATE SIMPLE03 SET NAME=#name#, PAY=#pay# WHERE SABUN=#sabun#
 	</update>
+	<insert id="insertOne" parameterClass="com.hb.struts2.model.SimpleVo">
+		INSERT INTO SIMPLE03 VALUES (#sabun#,#name#,SYSDATE,#pay#)
+	</insert>
+	<delete id="deleteOne" parameterClass="int">
+		DELETE FROM SIMPLE03 WHERE SABUN=#VALUE#
+	</delete>
 </sqlMap>
 
 

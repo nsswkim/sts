@@ -16,6 +16,15 @@ public class SimpleAction implements ModelDriven<SimpleVo>, Preparable {
 	private List<SimpleVo> list;
 	private int sabun;
 	private SimpleVo bean;
+	private String msg;
+	
+	public String getMsg() {
+		return msg;
+	}
+	
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
 	
 	public SimpleVo getBean() {
 		return bean;
@@ -48,6 +57,11 @@ public class SimpleAction implements ModelDriven<SimpleVo>, Preparable {
 		return "success";
 	}
 	public String insert(){
+		try {
+			dao.insertOne(bean);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return "success";
 	}
 	public String detail(){
@@ -64,6 +78,19 @@ public class SimpleAction implements ModelDriven<SimpleVo>, Preparable {
 		int result=0;
 		try {
 			result = dao.updateOne(bean);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if(result>0)
+			return "success";
+		else
+			return "input";
+	}
+	
+	public String delete() {
+		int result=0;
+		try {
+			result = dao.delectOne(sabun);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
