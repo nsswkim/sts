@@ -39,7 +39,7 @@
 	  <c:forEach items="${list }" var="bean">
 	  <tr>
 	  	<td>${bean.sabun }</td>
-	  	<td>${bean.name }</td>
+	  	<td><a href="detail.action?sabun=${bean.sabun }">${bean.name }</a></td>
 	  	<td>${bean.nalja }</td>
 	  	<td>${bean.pay }</td>
 	  </tr>
