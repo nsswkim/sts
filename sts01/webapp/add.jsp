@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,11 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Insert title here</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<style type="text/css">
-		.alert{
-			display: ${param.display ?"block" :"none"};
-		}
-	</style>
 	<script
 	  src="https://code.jquery.com/jquery-1.12.4.min.js"
 	  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
@@ -21,7 +15,6 @@
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="alert alert-success" role="alert">${param.msg }</div>
 	<div class="container">
 		<div class="row header">
 			<div class="col-md-12">
@@ -33,33 +26,37 @@
 		<div class="jumbotron">
 		  <h1>환영합니다!</h1>
 		  <p>한빛교육센터 홈페이지입니다</p>
-		  <p><a class="btn btn-primary btn-lg" href="add.do" role="button">
-		  	글쓰기</a></p>
+		  <p><a class="btn btn-primary btn-lg" href="list.do" role="button">
+		  	리스트</a></p>
 		</div>
 		<div class="page-header">
-		  <h1>게시판 <small>글을 작성합니다</small></h1>
+		  <h1>입력 <small>입력폼을 채워주세요</small></h1>
 		</div>
-		<table class="table table-striped">
-		  <tr>
-		  	<th>사번</th>
-		  	<th>이름</th>
-		  	<th>날짜</th>
-		  	<th>금액</th>
-		  </tr>
-		  <c:forEach items="${alist }" var="bean">
-		  <tr>
-		  	<td>${bean.sabun }</td>
-		  	<td>
-		  		<a href="detail.do?idx=${bean.sabun }">
-		  		${bean.name }
-		 		</a>
-		  	</td>
-		  	<td>${bean.nalja }</td>
-		  	<td>${bean.pay }</td>
-		  </tr>
-		  </c:forEach>
-		  
-		</table>
+		<form action="insert.do" method="post" class="form-horizontal">
+		  <div class="form-group">
+		    <label for="sabun" class="col-sm-2 control-label">사번</label>
+		    <div class="col-sm-10">
+		      <input type="text" name="sabun" class="sabun" id="sabun" placeholder="사번입력">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="name" class="col-sm-2 control-label">이름</label>
+		    <div class="col-sm-10">
+		      <input type="text" name="name" class="name" id="name" placeholder="이름입력">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="pay" class="col-sm-2 control-label">금액</label>
+		    <div class="col-sm-10">
+		      <input type="text" name="pay" class="pay" id="pay" placeholder="금액입력">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <div class="col-sm-offset-2 col-sm-10">
+		      <button type="submit" class="btn btn-default">입력</button>
+		    </div>
+		  </div>
+		</form>
 		
 		<!-- content끝 -->
 		</div>
