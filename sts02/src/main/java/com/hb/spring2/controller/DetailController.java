@@ -10,9 +10,14 @@ import com.hb.spring2.model.DaoImpl;
 
 public class DetailController extends AbstractController {
 	private DaoImpl dao;
+	private String viewName;
 	
 	public void setDao(DaoImpl dao) {
 		this.dao = dao;
+	}
+	
+	public void setViewName(String viewName) {
+		this.viewName = viewName;
 	}
 
 	@Override
@@ -21,7 +26,7 @@ public class DetailController extends AbstractController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("bean" 
 				, dao.selectOne(Integer.parseInt(request.getParameter("idx"))));
-		mav.setViewName("detail");
+		mav.setViewName(viewName);
 		return mav;
 	}
 

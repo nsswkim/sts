@@ -3,7 +3,19 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<bean id="daoImpl" class="com.hb.spring2.model.SimpleDao2"></bean>
+<bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp.BasicDataSource">
+	<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
+	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+	<property name="username" value="system"></property>
+	<property name="password" value="oracle"></property>
+	<property name="maxActive" value="50"></property>
+	<property name="maxIdle" value="10"></property>
+	<property name="maxWait" value="-1"></property>
+</bean>
+
+<bean id="daoImpl" class="com.hb.spring2.model.SimpleDao3" >
+	<property name="ds" ref="dataSource"></property>
+</bean>
 
 <!-- handlerMapping -->
 	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -14,6 +26,8 @@
 				<prop key="/add.do">addform</prop>
 				<prop key="/insert.do">insertOne</prop>
 				<prop key="/detail.do">selectOne</prop>
+				<prop key="/edit.do">editform</prop>
+				<prop key="/update.do">updateOne</prop>
 			</props>
 		</property>
 	</bean>
@@ -32,7 +46,16 @@
 		<property name="dao" ref="daoImpl"></property>	
 	</bean>
 	<bean id="selectOne" class="com.hb.spring2.controller.DetailController">
-		<property name="dao" ref="daoImpl"></property>		
+		<property name="dao" ref="daoImpl"></property>
+		<property name="viewName" value="detail"></property>
+	</bean>
+	<bean id="editform" class="com.hb.spring2.controller.DetailController">
+		<property name="dao" ref="daoImpl"></property>
+		<property name="viewName" value="edit"></property>
+	</bean>
+	<bean id="updateOne" class="com.hb.spring2.controller.UpdateController">
+		<constructor-arg name="commandClass" value="com.hb.spring2.model.SimpleVo"></constructor-arg>
+		<property name="dao" ref="daoImpl"></property>
 	</bean>
 <!-- viewResolver -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">

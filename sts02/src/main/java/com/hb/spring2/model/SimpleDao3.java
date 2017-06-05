@@ -1,6 +1,5 @@
 package com.hb.spring2.model;
 
-import java.nio.file.ClosedDirectoryStreamException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,24 +7,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class SimpleDao2 implements DaoImpl {
-	
-	private ResultSet rs;
-	private PreparedStatement pstmt;
-	private Connection conn;
-	private DataSource ds;
+import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 
-	public SimpleDao2() {
-		try {
-			InitialContext context = new InitialContext();
-			ds=(DataSource) context.lookup("java:comp/env/jdbc/oracle");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
+public class SimpleDao3 implements DaoImpl {
+	
+	private Connection conn;
+	private PreparedStatement pstmt;
+	private ResultSet rs;
+	private DataSource ds;
+	
+	public void setDs(DataSource ds) {
+		this.ds = ds;
+	}
+
+	public SimpleDao3() {
 	}
 
 	@Override
@@ -92,8 +89,18 @@ public class SimpleDao2 implements DaoImpl {
 	}
 
 	@Override
-	public int updateOne(SimpleVo bean) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateOne(SimpleVo bean) throws SQLException {
+		String sql="UPDATE SIMPLE03 SET NAME=?,PAY=? WHERE SABUN=?";
+		try{
+			conn=ds.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, bean.getName());
+			pstmt.setInt(2, bean.getPay());
+			pstmt.setInt(3, bean.getSabun());
+			return pstmt.executeUpdate();
+		}finally {
+			closeAll();
+		}
 	}
+
 }
