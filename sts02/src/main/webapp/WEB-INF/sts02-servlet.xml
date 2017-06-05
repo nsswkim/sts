@@ -3,6 +3,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+<bean id="daoImpl" class="com.hb.spring2.model.SimpleDao2"></bean>
+
 <!-- handlerMapping -->
 	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
@@ -11,6 +13,7 @@
 				<prop key="/list.do">selectAll</prop>
 				<prop key="/add.do">addform</prop>
 				<prop key="/insert.do">insertOne</prop>
+				<prop key="/detail.do">selectOne</prop>
 			</props>
 		</property>
 	</bean>
@@ -19,12 +22,18 @@
 	<bean id="index" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
 		<property name="viewName" value="main"></property>
 	</bean>
-	<bean id="selectAll" class="com.hb.spring2.controller.ListController"></bean>
+	<bean id="selectAll" class="com.hb.spring2.controller.ListController">
+		<property name="dao" ref="daoImpl"></property>
+	</bean>
 	<bean id="addform" class="org.springframework.web.servlet.mvc.ParameterizableViewController" >
 		<property name="viewName" value="add"></property>
 	</bean>
-	<bean id="insertOne" class="com.hb.spring2.controller.InsertController" ></bean>
-
+	<bean id="insertOne" class="com.hb.spring2.controller.InsertController" >
+		<property name="dao" ref="daoImpl"></property>	
+	</bean>
+	<bean id="selectOne" class="com.hb.spring2.controller.DetailController">
+		<property name="dao" ref="daoImpl"></property>		
+	</bean>
 <!-- viewResolver -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/page/"></property>
