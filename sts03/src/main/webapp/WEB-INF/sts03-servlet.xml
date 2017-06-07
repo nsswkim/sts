@@ -8,7 +8,9 @@
 class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"></bean>
 
 <!-- controller bean -->
-<bean name="/list.do" class="com.hb.spring3.controller.SelectAllController"></bean>
+<bean name="/list.do" class="com.hb.spring3.controller.SelectAllController">
+	<property name="dao" ref="simpleDao"></property>
+</bean>
 
 <!-- viewResolver 선택 -->
 <bean id="viewResolver"
