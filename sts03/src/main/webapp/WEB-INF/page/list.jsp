@@ -16,17 +16,18 @@
 <body>
 	<jsp:include page="/template/header.jsp"></jsp:include>
 	<jsp:include page="/template/menu.jsp"></jsp:include>
-	
-	<jsp:include page="/template/article.jsp">
-		<jsp:param name="h1" value="List"/>
-		<jsp:param name="p" value="selectAll..."/>
-	</jsp:include>
+
 	<div class="col-md-12">
 		<ol class="breadcrumb">
 		  <li><a href="#">Home</a></li>
 		  <li><a href="#">list</a></li>
 		</ol>
 	</div>
+	
+	<jsp:include page="/template/article.jsp">
+		<jsp:param name="h1" value="List"/>
+		<jsp:param name="p" value="selectAll..."/>
+	</jsp:include>
 	<div class="col-md-12">
 		<div class="page-header">
 		  <h1>리스트 <small>게시판 목록</small></h1>
@@ -42,14 +43,16 @@
 	  </tr>
 	  <c:forEach items="${alist }" var="bean">
 	  <tr>
-	  	<td>${bean.sabun }</td>
-	  	<td>${bean.name }</td>
-	  	<td>${bean.nalja }</td>
-	  	<td>${bean.pay }</td>
+	  	<td><a href="detail.do?idx=${bean.sabun }">${bean.sabun }</a></td>
+	  	<td><a href="detail.do?idx=${bean.sabun }">${bean.name }</a></td>
+	  	<td><a href="detail.do?idx=${bean.sabun }">${bean.nalja }</a></td>
+	  	<td><a href="detail.do?idx=${bean.sabun }">${bean.pay }</a></td>
 	  </tr>
 	  </c:forEach>
 	  
 	</table>
+	<a role="button" class="btn btn-primary" href="add.do">입력</a>
+	
 	</div>
 	<jsp:include page="/template/footer.jsp"></jsp:include>
 </body>

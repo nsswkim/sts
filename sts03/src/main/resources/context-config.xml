@@ -10,8 +10,8 @@
 		<property name="password" value="oracle"></property>	
 	</bean>
 
-	<bean id="simpleDao" class="com.hb.spring3.model.SimpleDaoImpl">
-		<property name="ds" ref="dataSource"></property>
+	<bean id="dao" class="com.hb.spring3.model.SimpleDaoImpl">
+		<constructor-arg ref="dataSource"></constructor-arg>
 	</bean>
 
 </beans>

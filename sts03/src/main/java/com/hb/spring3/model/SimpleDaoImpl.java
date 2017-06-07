@@ -9,14 +9,17 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.log4j.Logger;
+
 public class SimpleDaoImpl implements SimpleDao {
+	private Logger log = Logger.getLogger(this.getClass());
 	private DataSource ds;
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
-	public void setDs(DataSource ds) {
-		this.ds = ds;
+	public SimpleDaoImpl(DataSource ds) {
+		this.ds=ds;
 	}
 	
 	private void closeAll() throws SQLException {
@@ -33,6 +36,7 @@ public class SimpleDaoImpl implements SimpleDao {
 			conn=ds.getConnection();
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
+			int cnt=0;
 			while(rs.next()){
 				list.add(new SimpleVo(
 						rs.getInt("sabun")
@@ -40,6 +44,7 @@ public class SimpleDaoImpl implements SimpleDao {
 						,rs.getDate("nalja")
 						,rs.getInt("pay")
 						));
+				log.debug(list.get(cnt++));
 			}
 		}finally {
 			closeAll();
@@ -49,7 +54,20 @@ public class SimpleDaoImpl implements SimpleDao {
 
 	@Override
 	public SimpleVo selectOne(int sabun) throws SQLException {
-		try{}finally {
+		String sql="SELECT * FROM SIMPLE03 WHERE SABUN=?";
+		try{
+			conn=ds.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, sabun);
+			rs=pstmt.executeQuery();
+			if(rs.next())
+				return new SimpleVo(
+						rs.getInt("sabun")
+						,rs.getString("name")
+						,rs.getDate("nalja")
+						,rs.getInt("pay")
+						);
+		}finally {
 			closeAll();
 		}
 		return null;
@@ -57,10 +75,17 @@ public class SimpleDaoImpl implements SimpleDao {
 
 	@Override
 	public int insertOne(SimpleVo bean) throws SQLException {
-		try{}finally {
+		String sql="INSERT INTO SIMPLE03 VALUES (?,?,SYSDATE,?)";
+		try{
+			conn=ds.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, bean.getSabun());
+			pstmt.setString(2, bean.getName());
+			pstmt.setInt(3, bean.getPay());
+			return pstmt.executeUpdate();
+		}finally {
 			closeAll();
 		}
-		return 0;
 	}
 
 	@Override
