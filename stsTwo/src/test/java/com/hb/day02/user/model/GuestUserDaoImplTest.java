@@ -26,7 +26,7 @@ public class GuestUserDaoImplTest {
 	public void testSelectAll() throws SQLException {
 		List<GuestUserVo> list = dao.selectAll();
 		assertNotNull("list==null",list);
-		assertSame(0, list.size());
+		assertSame(2, list.size());
 	}
 
 	@Test
