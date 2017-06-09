@@ -30,9 +30,10 @@
 		  </li>
 		</ul>
 		<div class="btn-group btn-group-lg  btn-group-justified" role="group" aria-label="...">
-			<a class="btn btn-primary" href="#" role="button">수정</a>
-			<a class="btn btn-danger" href="#" role="button">삭제</a>
+			<a class="btn btn-primary" href="edit?idx=${bean.num }" role="button">수정</a>
+			<a class="btn btn-danger" href="del?idx=${bean.num }" role="button">삭제</a>
 		</div>
+		
 	</div>
 	<jsp:include page="/template/footer.jsp"></jsp:include>
 </body>
