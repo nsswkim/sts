@@ -30,8 +30,9 @@ public class GuestUserDaoImplTest {
 	}
 
 	@Test
-	public void testSelectOne() {
-		fail("Not yet implemented");
+	public void testSelectOne() throws SQLException {
+		assertEquals(new GuestUserVo(
+				1,1111,"°ü¸®ÀÚ",null), dao.selectOne(1));
 	}
 
 	@Test

@@ -25,13 +25,14 @@
 			</tr>
 			<c:forEach items="${alist }" var="bean">
 				<tr>
-					<td>${bean.num }</td>
-					<td>${bean.sabun }</td>
-					<td>${bean.name }</td>
-					<td>${bean.nalja }</td>
+					<td><a href="detail?idx=${bean.num }">${bean.num }</a></td>
+					<td><a href="detail?idx=${bean.num }">${bean.sabun }</a></td>
+					<td><a href="detail?idx=${bean.num }">${bean.name }</a></td>
+					<td><a href="detail?idx=${bean.num }">${bean.nalja }</a></td>
 				</tr>
 			</c:forEach>
 		</table>
+		<a class="btn btn-primary btn-lg btn-block" href="add" role="button">입력</a>
 	</div>
 	<jsp:include page="/template/footer.jsp"></jsp:include>
 </body>

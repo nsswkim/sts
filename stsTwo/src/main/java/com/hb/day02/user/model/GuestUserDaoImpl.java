@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class GuestUserDaoImpl implements GuestUserDao<GuestUserVo> {
@@ -17,6 +18,7 @@ public class GuestUserDaoImpl implements GuestUserDao<GuestUserVo> {
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
+	private Logger log = Logger.getLogger(this.getClass());
 	
 	private void closeAll() throws SQLException {
 		if(rs!=null)rs.close();
@@ -50,14 +52,41 @@ public class GuestUserDaoImpl implements GuestUserDao<GuestUserVo> {
 
 	@Override
 	public GuestUserVo selectOne(int idx) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		String sql="SELECT * FROM GUEST_USER WHERE NUM=?";
+		GuestUserVo bean=null;
+		try{
+			conn=dataSource.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			rs=pstmt.executeQuery();
+			if(rs.next()){
+				bean=new GuestUserVo(
+						rs.getInt("num")
+						,rs.getInt("sabun")
+						,rs.getString("name")
+						,rs.getDate("nalja")
+						);
+			}
+			log.debug(bean);
+		}finally {
+			closeAll();
+		}
+		return bean;
 	}
 
 	@Override
 	public void insertOne(GuestUserVo bean) throws SQLException {
-		// TODO Auto-generated method stub
-		
+		String sql="insert into guest_user values "
+				+ "((select max(num)+1 from GUEST_USER),?,?,sysdate)";
+		try{
+			conn=dataSource.getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, bean.getSabun());
+			pstmt.setString(2, bean.getName());
+			pstmt.executeUpdate();
+		}finally {
+			closeAll();
+		}
 	}
 
 	@Override
