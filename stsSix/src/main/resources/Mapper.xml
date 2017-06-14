@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hb.day06am.model.GuestDao">
+  <select id="selectAll" resultType="com.hb.day06am.model.GuestVo">
+  SELECT * FROM GUEST_DAY03 ORDER BY SABUN
+  </select>
+  <insert id="insertOne" parameterType="com.hb.day06am.model.GuestVo">
+  INSERT INTO GUEST_DAY03 VALUES 
+  (#{sabun},#{name},TO_CHAR(SYSDATE,'YYYY-MM-DD'),#{pay})
+  </insert>
+  <select id="selectOne" parameterType="int" resultType="com.hb.day06am.model.GuestVo">
+  SELECT * FROM GUEST_DAY03 WHERE SABUN=#{sabun}
+  </select>
+  <update id="updateOne" parameterType="com.hb.day06am.model.GuestVo">
+  UPDATE GUEST_DAY03 SET NAME=#{name},PAY=#{pay} WHERE SABUN=#{sabun}
+  </update>
+  <delete id="deleteOne" parameterType="Integer">
+  DELETE FROM GUEST_DAY03 WHERE SABUN=#{sabun}
+  </delete>
+</mapper>
